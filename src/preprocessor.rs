@@ -17,7 +17,7 @@ impl MyPreprocessor {
 
 impl Preprocessor for MyPreprocessor {
     fn name(&self) -> &str {
-        "my-preprocessor"
+        "ynn"
     }
 
     fn run(&self, ctx: &PreprocessorContext, mut book: Book) -> Result<Book, Error> {
