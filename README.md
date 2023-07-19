@@ -33,7 +33,7 @@ $ cargo test
 
 # 5. How To Customize This Project
 
-Basically, the only part you may want to edit is the body of the `replace()` function in [`src/lib.rs`](./src/lib.rs).
+Basically, the only part you may want to edit is the body of the `replace()` function in [`src/replacer.rs`](./src/replacer.rs).
 
 ```rust
 fn replace(s: &str, config: &Table) -> String {
@@ -41,7 +41,9 @@ fn replace(s: &str, config: &Table) -> String {
 }
 ```
 
-Optionally, you may want to fix or add some tests.
+Optionally, you may want to fix or add its tests.
+
+For a more advanced but yet simple example, [the official example preprocessor](https://rust-lang.github.io/mdBook/for_developers/preprocessors.html#hooking-into-mdbook) would help.
 
 # 6. References
 

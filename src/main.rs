@@ -6,7 +6,7 @@ use mdbook::book::Book;
 use mdbook::errors::Error;
 use mdbook::preprocess::{CmdPreprocessor, Preprocessor};
 
-use mdbook_preprocessor::MyPreprocessor;
+use mdbook_preprocessor::preprocessor::MyPreprocessor;
 
 fn main() -> Result<(), Error> {
     let argv = std::env::args().skip(1).collect_vec();
