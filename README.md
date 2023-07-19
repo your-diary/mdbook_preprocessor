@@ -31,7 +31,19 @@ $ cargo build --release
 $ cargo test
 ```
 
-# 5. References
+# 5. How To Customize This Project
+
+Basically, the only part you may want to edit is the body of the `replace()` function in [`src/lib.rs`](./src/lb.rs).
+
+```rust
+fn replace(s: &str, config: &Table) -> String {
+    /* ... */
+}
+```
+
+Optionally, you may want to fix or add some tests.
+
+# 6. References
 
 - [*Preprocessors - mdBook Documentation*](https://rust-lang.github.io/mdBook/for_developers/preprocessors.html)
 
