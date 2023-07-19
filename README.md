@@ -33,7 +33,7 @@ $ cargo test
 
 # 5. How To Customize This Project
 
-Basically, the only part you may want to edit is the body of the `replace()` function in [`src/lib.rs`](./src/lb.rs).
+Basically, the only part you may want to edit is the body of the `replace()` function in [`src/lib.rs`](./src/lib.rs).
 
 ```rust
 fn replace(s: &str, config: &Table) -> String {
