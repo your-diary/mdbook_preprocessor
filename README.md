@@ -44,13 +44,13 @@ The last pattern converts `==[string]==` into `<font color=Red>[string]</font>`.
 ## 3.1 From Local
 
 ```bash
-$ cargo install --path .
+$ cargo install --locked --path .
 ```
 
 ## 3.2 From GitHub
 
 ```bash
-$ cargo install --git 'https://github.com/your-diary/mdbook_preprocessor'
+$ cargo install --locked --git 'https://github.com/your-diary/mdbook_preprocessor'
 ```
 
 # 4. Build
