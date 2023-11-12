@@ -17,24 +17,24 @@ patterns = [
 timestamp = "<format>"
 ```
 
-### `patterns` (optional)
+- `patterns` (optional)
 
-`patterns` provides a simple replace functionality with user-defined regular expressions.
+    `patterns` provides a simple replace functionality with user-defined regular expressions.
 
-- `"<old>"` is a regular expression.
+    - `"<old>"` is a regular expression.
 
-- `"<new>"` is generally a string literal, but `$0`, `$1`, ... can be used to represent capture groups.
+    - `"<new>"` is generally a string literal, but `$0`, `$1`, ... can be used to represent capture groups.
 
-### `timestamp` (optional)
+- `timestamp` (optional)
 
-When `timestamp` is specified, the last commit date of the source file is prepended to each page.
+    When `timestamp` is specified, the last commit date of the source file is prepended to each page.
 
-The prepended timestamp is enclosed in `<div id='mdbook_preprocessor_last_modified'></div>`, making it customizable via CSS.
+    The prepended timestamp is enclosed in `<div id='mdbook_preprocessor_last_modified'></div>`, making it customizable via CSS.
 
-Commit dates are retrieved this command:
-```bash
-git log -1 --pretty='format:<format>' <file>
-```
+    Commit dates are retrieved this command:
+    ```bash
+    git log -1 --pretty='format:<format>' <file>
+    ```
 
 ## 2.2 Example
 
@@ -45,7 +45,7 @@ patterns = [
     [":warning:", "⚠️"],
     [":check:", "✅"],
     ["==(.*?)==", "<font color=Red>$1</font>"],
-],
+]
 timestamp = "🕒 last modified: %cs"
 ```
 
