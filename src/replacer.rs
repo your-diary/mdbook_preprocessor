@@ -1,3 +1,8 @@
+use std::{
+    path::{Path, PathBuf},
+    process::Command,
+};
+
 use regex::Regex;
 use toml::{Table, Value};
 
@@ -9,7 +14,7 @@ struct Pattern<'a> {
 //replaces Markdown content
 //`s`: original Markdown
 //`config`: configurations of this preprocessor specified in `book.toml` (`Table` is like `HashMap`)
-pub fn replace(s: &str, config: &Table) -> String {
+pub fn replace(filepath: &Option<PathBuf>, s: &str, config: &Table) -> String {
     let mut patterns = vec![];
     match config.get("patterns") {
         Some(Value::Array(l)) => {
@@ -32,7 +37,32 @@ pub fn replace(s: &str, config: &Table) -> String {
         s = re.replace_all(&s, pattern.new).to_string();
     }
 
+    if let Some(Value::String(format)) = config.get("timestamp") {
+        if let Some(p) = filepath {
+            let timestamp = generate_timestamp(p, format);
+            s = format!("{}\n{}", timestamp, s);
+        }
+    }
+
     s
+}
+
+fn generate_timestamp(p: &Path, format: &str) -> String {
+    let res = Command::new("git")
+        .args([
+            "log",
+            "-1",
+            &format!("--pretty=format:{}", format),
+            &format!("src/{}", p.to_str().unwrap()),
+        ])
+        .output()
+        .unwrap();
+    let stdout = String::from_utf8(res.stdout).unwrap();
+    let timestamp = stdout.trim().split('\n').next().unwrap();
+    format!(
+        "<div id='mdbook_preprocessor_last_modified'>{}</div>\n",
+        timestamp
+    )
 }
 
 #[cfg(test)]
@@ -46,7 +76,11 @@ mod test {
         let config = Table::new();
         assert_eq!(
             ":warning: :check: :unknown: ==abc=def==x==pq==",
-            replace(":warning: :check: :unknown: ==abc=def==x==pq==", &config)
+            replace(
+                &None,
+                ":warning: :check: :unknown: ==abc=def==x==pq==",
+                &config
+            )
         );
     }
 
@@ -70,7 +104,11 @@ mod test {
 
         assert_eq!(
             "⚠️ ✅ :unknown: <font color=Red>abc=def</font>x<font color=Red>pq</font>",
-            replace(":warning: :check: :unknown: ==abc=def==x==pq==", &config)
+            replace(
+                &None,
+                ":warning: :check: :unknown: ==abc=def==x==pq==",
+                &config
+            )
         );
     }
 }

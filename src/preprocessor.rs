@@ -28,7 +28,7 @@ impl Preprocessor for MyPreprocessor {
 
         book.for_each_mut(|e: &mut BookItem| {
             if let BookItem::Chapter(c) = e {
-                c.content = replacer::replace(&c.content, &config);
+                c.content = replacer::replace(&c.source_path, &c.content, &config);
             }
         });
 

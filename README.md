@@ -2,8 +2,6 @@
 
 An example preprocessor for `mdbook`.
 
-This provides a simple replace functionality with user-defined regular expressions.
-
 # 2. Configurations
 
 ## 2.1 Configurations
@@ -13,17 +11,30 @@ Add the configuration below to `book.toml`.
 [preprocessor.ynn]
 command = "<path to executable>"
 patterns = [
-    ["<old>", "<new>"]
+    ["<old>", "<new>"],
+    ...
 ]
+timestamp = "<format>"
 ```
 
-- Multiple `["<old>", "<new>"]` can be specified.
+### `patterns` (optional)
+
+`patterns` provides a simple replace functionality with user-defined regular expressions.
 
 - `"<old>"` is a regular expression.
 
 - `"<new>"` is generally a string literal, but `$0`, `$1`, ... can be used to represent capture groups.
 
-- `patterns` itself can be omitted, in which case this preprocessor does nothing.
+### `timestamp` (optional)
+
+When `timestamp` is specified, the last commit date of the source file is prepended to each page.
+
+The prepended timestamp is enclosed in `<div id='mdbook_preprocessor_last_modified'></div>`, making it customizable via CSS.
+
+Commit dates are retrieved this command:
+```bash
+git log -1 --pretty='format:<format>' <file>
+```
 
 ## 2.2 Example
 
@@ -34,7 +45,8 @@ patterns = [
     [":warning:", "⚠️"],
     [":check:", "✅"],
     ["==(.*?)==", "<font color=Red>$1</font>"],
-]
+],
+timestamp = "🕒 last modified: %cs"
 ```
 
 The last pattern converts `==[string]==` into `<font color=Red>[string]</font>`.
@@ -70,7 +82,7 @@ $ cargo test
 Basically, the only part you may want to edit is the body of the `replace()` function in [`src/replacer.rs`](./src/replacer.rs).
 
 ```rust
-fn replace(s: &str, config: &Table) -> String {
+pub fn replace(filepath: &Option<PathBuf>, s: &str, config: &Table) -> String {
     /* ... */
 }
 ```
