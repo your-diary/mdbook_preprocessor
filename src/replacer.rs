@@ -37,11 +37,11 @@ pub fn replace(filepath: &Option<PathBuf>, s: &str, config: &Table) -> String {
         s = re.replace_all(&s, pattern.new).to_string();
     }
 
-    if let Some(Value::String(format)) = config.get("timestamp") {
-        if let Some(p) = filepath {
-            let timestamp = generate_timestamp(p, format);
-            s = format!("{}\n{}", timestamp, s);
-        }
+    if let Some(Value::String(format)) = config.get("timestamp")
+        && let Some(p) = filepath
+    {
+        let timestamp = generate_timestamp(p, format);
+        s = format!("{}\n{}", timestamp, s);
     }
 
     s
