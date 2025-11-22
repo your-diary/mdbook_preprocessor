@@ -2,7 +2,7 @@ use mdbook::BookItem;
 use mdbook::book::Book;
 use mdbook::errors::Error;
 use mdbook::preprocess::{Preprocessor, PreprocessorContext};
-use toml::Table;
+use toml::value::Table;
 
 use crate::replacer;
 

@@ -4,7 +4,7 @@ use std::{
 };
 
 use regex::Regex;
-use toml::{Table, Value};
+use toml::{Value, value::Table};
 
 struct Pattern<'a> {
     old: &'a str,
