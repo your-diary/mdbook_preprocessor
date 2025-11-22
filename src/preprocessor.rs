@@ -21,7 +21,10 @@ impl Preprocessor for MyPreprocessor {
     }
 
     fn run(&self, ctx: &PreprocessorContext, mut book: Book) -> Result<Book, Error> {
-        let config = match ctx.config.get::<Table>(self.name())? {
+        let config = match ctx
+            .config
+            .get::<Table>(&format!("preprocessor.{}", self.name()))?
+        {
             Some(t) => t.clone(),
             None => Table::new(),
         };
