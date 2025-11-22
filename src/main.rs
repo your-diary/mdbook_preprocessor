@@ -10,7 +10,7 @@ use mdbook_preprocessor::preprocessor::MyPreprocessor;
 
 fn main() -> Result<(), Error> {
     let argv = std::env::args().skip(1).collect_vec();
-    if (!argv.is_empty()) {
+    if !argv.is_empty() {
         assert_eq!("supports", &argv[0]);
         assert_eq!(2, argv.len());
         let _renderer = &argv[1];

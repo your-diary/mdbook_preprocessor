@@ -87,19 +87,20 @@ mod test {
     #[test]
     fn test02() {
         let mut config = Table::new();
-        let mut patterns = Array::new();
-        patterns.push(Value::Array(Array::from(vec![
-            Value::String(":warning:".to_owned()),
-            Value::String("⚠️".to_owned()),
-        ])));
-        patterns.push(Value::Array(Array::from(vec![
-            Value::String(":check:".to_owned()),
-            Value::String("✅".to_owned()),
-        ])));
-        patterns.push(Value::Array(Array::from(vec![
-            Value::String("==(.*?)==".to_owned()),
-            Value::String("<font color=Red>$1</font>".to_owned()),
-        ])));
+        let patterns = vec![
+            Value::Array(Array::from(vec![
+                Value::String(":warning:".to_owned()),
+                Value::String("⚠️".to_owned()),
+            ])),
+            Value::Array(Array::from(vec![
+                Value::String(":check:".to_owned()),
+                Value::String("✅".to_owned()),
+            ])),
+            Value::Array(Array::from(vec![
+                Value::String("==(.*?)==".to_owned()),
+                Value::String("<font color=Red>$1</font>".to_owned()),
+            ])),
+        ];
         config.insert("patterns".to_owned(), Value::Array(patterns));
 
         assert_eq!(
