@@ -7,7 +7,11 @@ edition = "2024"
 
 [dependencies]
 itertools = "0.14.0"
-mdbook = "0.4.52"
 regex = "1.12.2"
 serde_json = "1.0.145"
 toml = "0.5.11"
+
+#This rename is needed because our package also has the name `mdbook_preprocessor`.
+#The history is we started to have to depend on the official `mdbook-preprocessor` crate since `mdbook` 0.5.0, which is a few years after we originally created our package.
+#We don't want to rename our package for backward-compatibility.
+official_mdbook_preprocessor = { package = "mdbook-preprocessor", version = "0.5.1" }

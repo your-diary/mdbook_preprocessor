@@ -1,7 +1,7 @@
-use mdbook::BookItem;
-use mdbook::book::Book;
-use mdbook::errors::Error;
-use mdbook::preprocess::{Preprocessor, PreprocessorContext};
+use official_mdbook_preprocessor::book::Book;
+use official_mdbook_preprocessor::book::BookItem;
+use official_mdbook_preprocessor::errors::Error;
+use official_mdbook_preprocessor::{Preprocessor, PreprocessorContext};
 use toml::value::Table;
 
 use crate::replacer;
@@ -21,7 +21,7 @@ impl Preprocessor for MyPreprocessor {
     }
 
     fn run(&self, ctx: &PreprocessorContext, mut book: Book) -> Result<Book, Error> {
-        let config: Table = match ctx.config.get_preprocessor(self.name()) {
+        let config = match ctx.config.get::<Table>(self.name())? {
             Some(t) => t.clone(),
             None => Table::new(),
         };

@@ -2,9 +2,9 @@ use std::io;
 use std::process;
 
 use itertools::Itertools;
-use mdbook::book::Book;
-use mdbook::errors::Error;
-use mdbook::preprocess::{CmdPreprocessor, Preprocessor};
+use official_mdbook_preprocessor::Preprocessor;
+use official_mdbook_preprocessor::book::Book;
+use official_mdbook_preprocessor::errors::Error;
 
 use mdbook_preprocessor::preprocessor::MyPreprocessor;
 
@@ -18,7 +18,7 @@ fn main() -> Result<(), Error> {
     }
 
     let preprocessor = MyPreprocessor::new();
-    let (ctx, book) = CmdPreprocessor::parse_input(io::stdin())?;
+    let (ctx, book) = official_mdbook_preprocessor::parse_input(io::stdin())?;
     let result: Book = preprocessor.run(&ctx, book)?;
     println!("{}", serde_json::to_string(&result)?);
     Ok(())
